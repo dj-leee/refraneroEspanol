@@ -34,11 +34,11 @@ buttonSubmit.textContent = 'SOLICITAR'.toUpperCase();
 buttonSubmit.classList.add('formulario__button');
 form.appendChild(buttonSubmit);
 
-const textareaReranes = document.createElement('textarea');
-textareaReranes.name = 'refran';
-textareaReranes.readOnly = true;
-textareaReranes.classList.add('formulario__textarea');
-form.appendChild(textareaReranes);
+const textareaRefranes = document.createElement('textarea');
+textareaRefranes.name = 'refran';
+textareaRefranes.readOnly = true;
+textareaRefranes.classList.add('formulario__textarea');
+form.appendChild(textareaRefranes);
 
 const botonCopiar = document.createElement('button');
 botonCopiar.type = 'button';
@@ -79,13 +79,21 @@ form.addEventListener('submit', (e) => {
         const indice = Math.floor(Math.random() * refranesEspanoles.length);
         refran += refranesEspanoles[indice] + '\n';
     }
-    textareaReranes.value = refran;
+    textareaRefranes.value = refran;
 });
 
-
-
-
-
-
-
 // ^******************************************++
+// Lógica para copiar los refranes al portapapeles
+// ********************************
+botonCopiar.addEventListener("click", function () {
+    // Copiar el texto al portapapeles
+    navigator.clipboard.writeText(textareaRefranes.value);
+});
+// ^******************************************++
+
+// Siempre tener un refran cuando se carga la página, por defecto 1 refrán aleatorio
+// ********************************
+window.addEventListener("load", function () {
+    const indiceAleatorio = Math.floor(Math.random() * refranesEspanoles.length);
+    textareaRefranes.value = refranesEspanoles[indiceAleatorio];
+});
