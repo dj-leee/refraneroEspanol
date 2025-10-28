@@ -10,9 +10,6 @@ h1.textContent = 'Refranero Español';
 form.appendChild(h1);
 // Crear una clase para el h1
 h1.classList.add('formulario__titulo'); 
-
-
-
 const labelNumerorefran = document.createElement('label')
 labelNumerorefran.textContent = 'Cantidad:'.toUpperCase();
 labelNumerorefran.classList.add('formulario__label');
@@ -73,12 +70,19 @@ const refranesEspanoles = [
 // ****************************************************
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const numeroRefran = inputNumerorefran.value;
-    let refran = '';
-    for (let i = 0; i < numeroRefran; i++) {
+    const numeroRefran = parseInt(inputNumerorefran.value);
+    const refranesSeleccionados = new Set();
+    
+    do {
         const indice = Math.floor(Math.random() * refranesEspanoles.length);
-        refran += refranesEspanoles[indice] + '\n';
-    }
+        refranesSeleccionados.add(refranesEspanoles[indice]);
+    } while(refranesSeleccionados.size < numeroRefran);
+    
+    // Convertir el Set a string con los refranes
+    const refran = Array.from(refranesSeleccionados)
+        .map(r => `"${r}"`)
+        .join('\n');
+    
     textareaRefranes.value = refran;
 });
 
@@ -88,12 +92,14 @@ form.addEventListener('submit', (e) => {
 botonCopiar.addEventListener("click", function () {
     // Copiar el texto al portapapeles
     navigator.clipboard.writeText(textareaRefranes.value);
+    
 });
+
 // ^******************************************++
 
 // Siempre tener un refran cuando se carga la página, por defecto 1 refrán aleatorio
 // ********************************
 window.addEventListener("load", function () {
     const indiceAleatorio = Math.floor(Math.random() * refranesEspanoles.length);
-    textareaRefranes.value = refranesEspanoles[indiceAleatorio];
+    textareaRefranes.value = '"' + refranesEspanoles[indiceAleatorio] + '"';
 });
