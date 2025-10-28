@@ -68,8 +68,8 @@ const refranesEspanoles = [
     "Zapatero, a tus zapatos."
 ];
 // ****************************************************
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+form.addEventListener('submit', (evento) => {
+    evento.preventDefault();
     const numeroRefran = parseInt(inputNumerorefran.value);
     const refranesSeleccionados = new Set();
     
